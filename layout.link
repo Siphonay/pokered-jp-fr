@@ -60,6 +60,7 @@ ROMX $7
 	"Pokémon Names"
 	"Maps 4"
 	"Hidden Events 1"
+	"Battle Engine 3"
 ROMX $8
 	"Sound Effect Headers 2"
 	"Music Headers 2"
@@ -70,7 +71,6 @@ ROMX $8
 	"Music 2"
 ROMX $9
 	"Pics 1"
-	"Battle Engine 3"
 ROMX $A
 	"Pics 2"
 	"Battle Engine 4"
