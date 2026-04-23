@@ -126,8 +126,8 @@ DisplayTitleScreen:
 IF DEF(_RED)
 	ld a, STARTER1 ; which Pokemon to show first on the title screen
 ENDC
-IF DEF(_BLUE)
-	ld a, STARTER2 ; which Pokemon to show first on the title screen
+IF DEF(_GREEN)
+	ld a, STARTER3 ; which Pokemon to show first on the title screen
 ENDC
 	ld [wTitleMonSpecies], a
 	call LoadTitleMonSprite
