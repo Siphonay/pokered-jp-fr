@@ -140,12 +140,11 @@ _Thanks2Text::
 	done
 
 _AfterTrade2Text::
-	text "Ton @"
-	text_ram wInGameTradeGiveMonName
-	text_start
-	line "a évolué pendant"
-
-	para "l'échange!"
+	text "Est-ce que mon"
+	line "@"
+	text_ram wInGameTradeReceiveMonName
+	text " est"
+	cont "devenu plus fort?"
 	done
 
 _WannaTrade3Text::
