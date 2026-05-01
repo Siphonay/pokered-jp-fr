@@ -11,7 +11,7 @@ HiddenItemCoords:
 	hidden_item ROUTE_25,                      38,   3
 	hidden_item ROUTE_9,                       14,   7
 	hidden_item SS_ANNE_KITCHEN,               13,   9
-	hidden_item SS_ANNE_B1F_ROOMS,              3,   1
+	hidden_item SS_ANNE_B1F_ROOMS,              0,   6
 	hidden_item ROUTE_10,                       9,  17
 	hidden_item ROUTE_10,                      16,  53
 	hidden_item ROCKET_HIDEOUT_B1F,            21,  15
@@ -23,9 +23,9 @@ HiddenItemCoords:
 	hidden_item POKEMON_MANSION_B1F,            1,   9
 	hidden_item SAFARI_ZONE_GATE,              10,   1 ; inaccessible
 	hidden_item SAFARI_ZONE_WEST,               6,   5
-	hidden_item SILPH_CO_5F,                   12,   3
+	hidden_item SILPH_CO_5F,                   11,   3
 	hidden_item SILPH_CO_9F,                    2,  15
-	hidden_item COPYCATS_HOUSE_2F,              1,   1
+	hidden_item COPYCATS_HOUSE_2F,              0,   6
 	hidden_item CERULEAN_CAVE_1F,              14,  11
 	hidden_item CERULEAN_CAVE_B1F,             27,   3
 	hidden_item POWER_PLANT,                   17,  16
@@ -43,7 +43,7 @@ HiddenItemCoords:
 	hidden_item VIRIDIAN_CITY,                 14,   4
 	hidden_item ROUTE_11,                      48,   5
 	hidden_item ROUTE_12,                       2,  63
-	hidden_item ROUTE_17,                      15,  14
+	hidden_item ROUTE_17,                      15,  15
 	hidden_item ROUTE_17,                       8,  45
 	hidden_item ROUTE_17,                      17,  72
 	hidden_item ROUTE_17,                       4,  91

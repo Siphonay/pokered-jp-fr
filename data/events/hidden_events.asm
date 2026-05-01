@@ -374,7 +374,7 @@ DEF ANY_FACING EQU $d0
 	db -1 ; end
 
 	hidden_events_for SS_ANNE_B1F_ROOMS
-	hidden_event  3,  1, HiddenItems, HYPER_POTION
+	hidden_event  0,  6, HiddenItems, HYPER_POTION
 	db -1 ; end
 
 	hidden_events_for ROUTE_10
@@ -417,7 +417,7 @@ DEF ANY_FACING EQU $d0
 	db -1 ; end
 
 	hidden_events_for SILPH_CO_5F
-	hidden_event 12,  3, HiddenItems, ELIXER
+	hidden_event 11,  3, HiddenItems, ELIXER
 	db -1 ; end
 
 	hidden_events_for SILPH_CO_9F
@@ -425,7 +425,7 @@ DEF ANY_FACING EQU $d0
 	db -1 ; end
 
 	hidden_events_for COPYCATS_HOUSE_2F
-	hidden_event  1,  1, HiddenItems, NUGGET
+	hidden_event  0,  6, HiddenItems, NUGGET
 	db -1 ; end
 
 	hidden_events_for CERULEAN_CAVE_1F
@@ -561,7 +561,7 @@ DEF ANY_FACING EQU $d0
 	db -1 ; end
 
 	hidden_events_for ROUTE_17
-	hidden_event 15,  14, HiddenItems, RARE_CANDY
+	hidden_event 15,  15, HiddenItems, RARE_CANDY
 	hidden_event  8,  45, HiddenItems, FULL_RESTORE
 	hidden_event 17,  72, HiddenItems, PP_UP
 	hidden_event  4,  91, HiddenItems, MAX_REVIVE
