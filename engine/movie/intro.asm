@@ -456,11 +456,11 @@ FightIntroBackMon:
 FightIntroBackMonEnd:
 
 FightIntroFrontMon:
-	INCBIN "gfx/intro/red_nidorino_1.2bpp"
+	INCBIN "gfx/intro/blue_jigglypuff_1.2bpp"
 FightIntroFrontMon2:
-	INCBIN "gfx/intro/red_nidorino_2.2bpp"
+	INCBIN "gfx/intro/blue_jigglypuff_2.2bpp"
 FightIntroFrontMon3:
-	INCBIN "gfx/intro/red_nidorino_3.2bpp"
+	INCBIN "gfx/intro/blue_jigglypuff_3.2bpp"
 
 FightIntroFrontMonEnd:
 

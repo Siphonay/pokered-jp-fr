@@ -253,7 +253,6 @@ PlayAnimation:
 	call PlaySubanimation
 	vc_hook Stop_reducing_move_anim_flashing_Mega_Punch
 	pop af
-	vc_hook_red Stop_reducing_move_anim_flashing_Blizzard
 	vc_hook_blue Stop_reducing_move_anim_flashing_Dream_Eater
 	ldh [rOBP0], a
 .nextAnimationCommand
@@ -386,12 +385,7 @@ MoveAnimationTiles1:
 	INCBIN "gfx/battle/move_anim_1.2bpp"
 
 SlotMachineTiles2:
-IF DEF(_RED)
-	INCBIN "gfx/slots/red_slots_2.2bpp"
-ENDC
-IF DEF(_BLUE)
 	INCBIN "gfx/slots/blue_slots_2.2bpp"
-ENDC
 SlotMachineTiles2End:
 
 MoveAnimation:
@@ -980,7 +974,6 @@ AnimationFlashScreenLong:
 	ld [wFlashScreenLongCounter], a
 	pop hl
 	jr nz, .loop
-	vc_hook_red Stop_reducing_move_anim_flashing_Psychic
 	ret
 
 ; BG palettes

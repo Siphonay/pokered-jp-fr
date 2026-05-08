@@ -73,12 +73,7 @@ CreditsTextPointers:
 	assert_table_length NUM_CRED_STRINGS
 
 CredVersion:
-IF DEF(_RED)
-	db -6, "VERSION ROUGE@"
-ENDC
-IF DEF(_BLUE)
 	db -6, "VERSION BLEUE@"
-ENDC
 CredTajiri:
 	db -6, "SATOSHI TAJIRI@"
 CredTaOota:

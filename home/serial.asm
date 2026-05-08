@@ -267,7 +267,7 @@ ENDC
 	dec b
 	jr nz, .loop2
 	vc_patch Wireless_net_delay_4
-IF DEF(_RED_VC) || DEF(_BLUE_VC)
+IF DEF(_BLUE_VC)
 	ld b, 26
 ELSE
 	ld b, 10
