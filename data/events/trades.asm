@@ -7,22 +7,14 @@ ENDM
 TradeMons:
 ; entries correspond to TRADE_FOR_* constants
 	table_width 3 + NAME_LENGTH
-	; The two instances of TRADE_DIALOGSET_EVOLUTION are a leftover
-	; from the Japanese Blue trades, which used species that evolve.
-	; TRADE_DIALOGSET_EVOLUTION did not refer to evolution in Japanese
-	; Red/Green. Japanese Blue changed _AfterTrade2Text to say your Pokémon
-	; "went and evolved" and also changed the trades to match. English
-	; Red/Blue uses the original JP Red/Green trades but with the JP Blue
-	; post-trade text. English Yellow changed _AfterTrade2Text to
-	; not mention evolution.
-	npctrade NIDORINO,   NIDORINA,  TRADE_DIALOGSET_CASUAL,    "BIBICHE"
-	npctrade ABRA,       MR_MIME,   TRADE_DIALOGSET_CASUAL,    "MARCEL"
-	npctrade BUTTERFREE, BEEDRILL,  TRADE_DIALOGSET_HAPPY,     "CHIKUCHIKU" ; unused
-	npctrade PONYTA,     SEEL,      TRADE_DIALOGSET_CASUAL,    "BIBI"
-	npctrade SPEAROW,    FARFETCHD, TRADE_DIALOGSET_HAPPY,     "JULIO"
-	npctrade SLOWBRO,    LICKITUNG, TRADE_DIALOGSET_CASUAL,    "GLAVIOTEUR"
-	npctrade POLIWHIRL,  JYNX,      TRADE_DIALOGSET_EVOLUTION, "NINI"
-	npctrade RAICHU,     ELECTRODE, TRADE_DIALOGSET_EVOLUTION, "KOURJUS"
-	npctrade VENONAT,    TANGELA,   TRADE_DIALOGSET_HAPPY,     "BIGOUDI"
-	npctrade NIDORAN_M,  NIDORAN_F, TRADE_DIALOGSET_HAPPY,     "FABI"
+	npctrade RHYDON,     KANGASKHAN, TRADE_DIALOGSET_CASUAL,    "MAMS"
+	npctrade JIGGLYPUFF, MR_MIME,    TRADE_DIALOGSET_CASUAL,    "MARCEL"
+	npctrade BUTTERFREE, BEEDRILL,   TRADE_DIALOGSET_HAPPY,     "CHIKUCHIKU" ; unused
+	npctrade GROWLITHE,  KRABBY,     TRADE_DIALOGSET_CASUAL,    "PINCEMI"
+	npctrade PIDGEY,     FARFETCHD,  TRADE_DIALOGSET_HAPPY,     "JULIO"
+	npctrade PERSIAN,    TAUROS,     TRADE_DIALOGSET_CASUAL,    "BOVINO"
+	npctrade MACHOKE,    HAUNTER,    TRADE_DIALOGSET_EVOLUTION, "TOTOME"
+	npctrade KADABRA,    GRAVELER,   TRADE_DIALOGSET_EVOLUTION, "FERNAND"
+	npctrade SEEL,       SLOWPOKE,   TRADE_DIALOGSET_HAPPY,     "OSCAR"
+	npctrade RATTATA,    POLIWAG,    TRADE_DIALOGSET_HAPPY,     "TARTI"
 	assert_table_length NUM_NPC_TRADES
