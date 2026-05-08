@@ -1,4 +1,4 @@
-; These are all the asm constants needed to make the blue_vc patch.
+; These are all the asm constants needed to make the green_vc patch.
 
 ; [FPA 001 Begin]
 EXPORT DEF M_CHAR EQU 'M'

@@ -31,10 +31,7 @@ DisplayTitleScreen:
 	ldh [hAutoBGTransferEnabled], a
 	xor a
 	ldh [hTileAnimations], a
-	; ldh [hSCX], a
-	; ld a, $40
 	ld a, $90
-	; ldh [hSCY], a
 	ldh [hSCX], a
 	ld a, $90
 	ldh [hWY], a
@@ -43,7 +40,6 @@ DisplayTitleScreen:
 	call LoadFontTilePatterns
 	ld hl, NintendoCopyrightLogoGraphics
 	ld de, vTitleLogo2 tile 16
-	; ld bc, 5 tiles
 	ld bc, 13 tiles
 	ld a, BANK(NintendoCopyrightLogoGraphics)
 	call FarCopyData2
@@ -99,11 +95,6 @@ DisplayTitleScreen:
 
 	call DrawPlayerCharacter
 
-; put a pokeball in the player's hand
-	; ld hl, wShadowOAMSprite10
-	; ld a, $74
-	; ld [hl], a
-
 ; place tiles for title screen copyright
 	hlcoord 2, 17
 	ld de, .tileScreenCopyrightTiles
@@ -115,13 +106,10 @@ DisplayTitleScreen:
 	dec b
 	jr nz, .tileScreenCopyrightTilesLoop
 
-	; jr .next
-
 .tileScreenCopyrightTiles
 	db $41,$42,$43,$44,$42,$43,$4f,$46,$47,$48,$49,$4A,$4B,$4C,$4D,$4E ; ©1995-1999 GAME FREAK inc.
 .tileScreenCopyrightTilesEnd
 
-; .next
 	call SaveScreenTilesToBuffer2
 	call PrintGameVersionOnTitleScreen
 	call SaveScreenTilesToBuffer1
@@ -139,10 +127,8 @@ ENDC
 
 	ld a, HIGH(vBGMap0 + $300)
 	call TitleScreenCopyTileMapToVRAM
-	; call SaveScreenTilesToBuffer1
 	ld a, $40
 	ldh [hWY], a
-	; call LoadScreenTilesFromBuffer2
 	ld a, HIGH(vBGMap0)
 	call TitleScreenCopyTileMapToVRAM
 	ld b, SET_PAL_TITLE_SCREEN
@@ -173,94 +159,12 @@ ENDC
 	ld [wNewSoundID], a
 	call PlaySound
 
-; make pokemon logo bounce up and down
-	; ld bc, hSCY ; background scroll Y
-	; ld hl, .TitleScreenPokemonLogoYScrolls
-; .bouncePokemonLogoLoop
-	; ld a, [hli]
-	; and a
-	; jr z, .finishedBouncingPokemonLogo
-	; ld d, a
-	; cp -3
-	; jr nz, .skipPlayingSound
-	; ld a, SFX_INTRO_CRASH
-	; call PlaySound
-; .skipPlayingSound
-	; ld a, [hli]
-	; ld e, a
-	; call .ScrollTitleScreenPokemonLogo
-	; jr .bouncePokemonLogoLoop
-
-; .TitleScreenPokemonLogoYScrolls:
-; Controls the bouncing effect of the Pokemon logo on the title screen
-	; db -4,16  ; y scroll amount, number of times to scroll
-	; db 3,4
-	; db -3,4
-	; db 2,2
-	; db -2,2
-	; db 1,2
-	; db -1,2
-	; db 0      ; terminate list with 0
-
-; .ScrollTitleScreenPokemonLogo:
-; Scrolls the Pokemon logo on the title screen to create the bouncing effect
-; Scrolls d pixels e times
-	; call DelayFrame
-	; ld a, [bc] ; background scroll Y
-	; add d
-	; ld [bc], a
-	; dec e
-	; jr nz, .ScrollTitleScreenPokemonLogo
-	; ret
-
-; .finishedBouncingPokemonLogo
-	; call LoadScreenTilesFromBuffer1
-	; ld c, 36
-	; call DelayFrames
-	; ld a, SFX_INTRO_WHOOSH
-	; call PlaySound
-
-; scroll game version in from the right
-	; call PrintGameVersionOnTitleScreen
-	; ld a, SCREEN_HEIGHT_PX
-	; ldh [hWY], a
-	; ld d, 144
-; .scrollTitleScreenGameVersionLoop
-	; ld h, d
-	; ld l, 64
-	; call ScrollTitleScreenGameVersion
-	; ld h, 0
-	; ld l, 80
-	; call ScrollTitleScreenGameVersion
-	; ld a, d
-	; add 4
-	; ld d, a
-	; and a
-	; jr nz, .scrollTitleScreenGameVersionLoop
-
-	; ld a, HIGH(vBGMap1)
-	; call TitleScreenCopyTileMapToVRAM
-	; call LoadScreenTilesFromBuffer2
-	; call PrintGameVersionOnTitleScreen
-	; call Delay3
-	; call WaitForSoundToFinish
-	; ld a, MUSIC_TITLE_SCREEN
-	; ld [wNewSoundID], a
-	; call PlaySound
-	; xor a
-	; ld [wUnusedFlag], a
-
 ; Keep scrolling in new mons indefinitely until the user performs input.
 .awaitUserInterruptionLoop
-	; ld c, 200
 	ld c, 255
 	call CheckForUserInterruption
 	jr c, .finishedWaiting
 	call TitleScreenScrollInMon
-	; ld c, 1
-	; call CheckForUserInterruption
-	; jr c, .finishedWaiting
-	; farcall TitleScreenAnimateBallIfStarterOut
 	call TitleScreenPickNewMon
 	jr .awaitUserInterruptionLoop
 
@@ -272,7 +176,6 @@ ENDC
 	call ClearSprites
 	xor a
 	ldh [hWY], a
-	; inc a
 	ld a, 1
 	ldh [hAutoBGTransferEnabled], a
 	call ClearScreen
@@ -321,16 +224,12 @@ TitleScreenPickNewMon:
 
 	ld a, $90
 	ldh [hWY], a
-	; ld d, 1 ; scroll out
-	; farcall TitleScroll
-	; ret
 	ld d, $A0
 	ld c, $C
 	jp TitleScroll
 
 TitleScreenScrollInMon:
 	ld d, 0 ; scroll in
-	; farcall TitleScroll
 	ld c, $14
 	call TitleScroll
 	xor a
@@ -378,7 +277,6 @@ DrawPlayerCharacter:
 	xor a
 	ld [wPlayerCharacterOAMTile], a
 	ld hl, wShadowOAM
-	; lb de, $60, $5a
 	lb de, $60, $30
 	ld b, 7
 .loop
@@ -415,7 +313,6 @@ ClearBothBGMaps:
 LoadTitleMonSprite:
 	ld [wCurPartySpecies], a
 	ld [wCurSpecies], a
-	; hlcoord 5, 10
 	hlcoord 9, 10
 	call GetMonHeader
 	jp LoadFrontSpriteByMonIndex

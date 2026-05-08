@@ -1,6 +1,7 @@
 roms := \
 	pokered.gbc \
 	pokegreen.gbc \
+	pokered_debug.gbc \
 	pokegreen_debug.gbc
 patches := \
 	pokered.patch \
@@ -17,11 +18,12 @@ rom_obj := \
 	gfx/sprites.o \
 	gfx/tilesets.o
 
-pokered_obj        := $(rom_obj:.o=_red.o)
-pokegreen_obj       := $(rom_obj:.o=_green.o)
-pokegreen_debug_obj := $(rom_obj:.o=_green_debug.o)
-pokered_vc_obj     := $(rom_obj:.o=_red_vc.o)
-pokeblue_vc_obj    := $(rom_obj:.o=_blue_vc.o)
+pokered_obj          := $(rom_obj:.o=_red.o)
+pokegreen_obj        := $(rom_obj:.o=_green.o)
+pokered_debug_obj    := $(rom_obj:.o=_red_debug.o)
+pokegreen_debug_obj  := $(rom_obj:.o=_green_debug.o)
+pokered_vc_obj       := $(rom_obj:.o=_red_vc.o)
+pokegreen_vc_obj     := $(rom_obj:.o=_green_vc.o)
 
 
 ### Build tools
@@ -54,20 +56,22 @@ RGBGFXFLAGS  ?= -Weverything
 	all \
 	red \
 	green \
+	red_debug \
 	green_debug \
 	red_vc \
-	blue_vc \
+	green_vc \
 	clean \
 	tidy \
 	compare \
 	tools
 
 all: $(roms)
-red:        pokered.gbc
-green:       pokegreen.gbc
-blue_debug: pokegreen_debug.gbc
-red_vc:     pokered.patch
-blue_vc:    pokeblue.patch
+red:          pokered.gbc
+green:        pokegreen.gbc
+red_debug:    pokered_debug.gbc
+green_debug:  pokegreen_debug.gbc
+red_vc:       pokered.patch
+green_vc:     pokegreen.patch
 
 clean: tidy
 	find gfx \
@@ -88,7 +92,8 @@ tidy:
 	      $(pokered_obj) \
 	      $(pokegreen_obj) \
 	      $(pokered_vc_obj) \
-	      $(pokeg_vc_obj) \
+	      $(pokegreen_vc_obj) \
+	      $(pokered_debug_obj) \
 	      $(pokegreen_debug_obj) \
 	      rgbdscheck.o
 	$(MAKE) clean -C tools/
@@ -106,11 +111,12 @@ ifeq ($(DEBUG),1)
 RGBASMFLAGS += -E
 endif
 
-$(pokered_obj):        RGBASMFLAGS += -D _RED
-$(pokegreen_obj):       RGBASMFLAGS += -D _GREEN
-$(pokegreen_debug_obj): RGBASMFLAGS += -D _GREEN -D _DEBUG
-$(pokered_vc_obj):     RGBASMFLAGS += -D _RED -D _RED_VC
-$(pokeblue_vc_obj):    RGBASMFLAGS += -D _BLUE -D _BLUE_VC
+$(pokered_obj):          RGBASMFLAGS += -D _RED
+$(pokegreen_obj):        RGBASMFLAGS += -D _GREEN
+$(pokered_debug_obj):    RGBASMFLAGS += -D _RED -D _DEBUG
+$(pokegreen_debug_obj):  RGBASMFLAGS += -D _GREEN -D _DEBUG
+$(pokered_vc_obj):       RGBASMFLAGS += -D _RED -D _RED_VC
+$(pokegreen_vc_obj):     RGBASMFLAGS += -D _GREEN -D _GREEN_VC
 
 %.patch: %_vc.gbc %.gbc vc/%.patch.template
 	tools/make_patch $*_vc.sym $^ $@
@@ -133,29 +139,32 @@ $1: $2 $$(shell tools/scan_includes $2) $(preinclude_deps) | rgbdscheck.o
 	$$(RGBASM) $$(RGBASMFLAGS) -o $$@ $$<
 endef
 
-# Dependencies for objects (drop _red and _blue from asm file basenames)
+# Dependencies for objects (drop _red and _green from asm file basenames)
 $(foreach obj, $(pokered_obj), $(eval $(call DEP,$(obj),$(obj:_red.o=.asm))))
 $(foreach obj, $(pokegreen_obj), $(eval $(call DEP,$(obj),$(obj:_green.o=.asm))))
+$(foreach obj, $(pokered_debug_obj), $(eval $(call DEP,$(obj),$(obj:_red_debug.o=.asm))))
 $(foreach obj, $(pokegreen_debug_obj), $(eval $(call DEP,$(obj),$(obj:_green_debug.o=.asm))))
 $(foreach obj, $(pokered_vc_obj), $(eval $(call DEP,$(obj),$(obj:_red_vc.o=.asm))))
-$(foreach obj, $(pokeblue_vc_obj), $(eval $(call DEP,$(obj),$(obj:_blue_vc.o=.asm))))
+$(foreach obj, $(pokegreen_vc_obj), $(eval $(call DEP,$(obj),$(obj:_green_vc.o=.asm))))
 
 endif
 
 
 RGBLINKFLAGS += -d
-pokered.gbc:        RGBLINKFLAGS += -p 0x00
-pokegreen.gbc:       RGBLINKFLAGS += -p 0x00
-pokegreen_debug.gbc: RGBLINKFLAGS += -p 0xff
-pokered_vc.gbc:     RGBLINKFLAGS += -p 0x00
-pokeblue_vc.gbc:    RGBLINKFLAGS += -p 0x00
+pokered.gbc:          RGBLINKFLAGS += -p 0x00
+pokegreen.gbc:        RGBLINKFLAGS += -p 0x00
+pokered_debug.gbc:    RGBLINKFLAGS += -p 0xff
+pokegreen_debug.gbc:  RGBLINKFLAGS += -p 0xff
+pokered_vc.gbc:       RGBLINKFLAGS += -p 0x00
+pokegreen_vc.gbc:     RGBLINKFLAGS += -p 0x00
 
 RGBFIXFLAGS += -jsv -n 0 -k 01 -l 0x33 -m MBC5+RAM+BATTERY -r 03
-pokered.gbc:        RGBFIXFLAGS += -p 0x00 -t "POKEMON RED"
-pokegreen.gbc:       RGBFIXFLAGS += -p 0x00 -t "POKEMON GREEN"
-pokegreen_debug.gbc: RGBFIXFLAGS += -p 0xff -t "POKEMON GREEN"
-pokered_vc.gbc:     RGBFIXFLAGS += -p 0x00 -t "POKEMON RED"
-pokeblue_vc.gbc:    RGBFIXFLAGS += -p 0x00 -t "POKEMON BLUE"
+pokered.gbc:          RGBFIXFLAGS += -p 0x00 -t "POKEMON RED"
+pokegreen.gbc:        RGBFIXFLAGS += -p 0x00 -t "POKEMON GREEN"
+pokered_debug.gbc:    RGBFIXFLAGS += -p 0xff -t "POKEMON RED"
+pokegreen_debug.gbc:  RGBFIXFLAGS += -p 0xff -t "POKEMON GREEN"
+pokered_vc.gbc:       RGBFIXFLAGS += -p 0x00 -t "POKEMON RED"
+pokegreen_vc.gbc:     RGBFIXFLAGS += -p 0x00 -t "POKEMON GREEN"
 
 %.gbc: $$(%_obj) layout.link
 	$(RGBLINK) $(RGBLINKFLAGS) -l layout.link -m $*.map -n $*.sym -o $@ $(filter %.o,$^)
@@ -167,9 +176,6 @@ pokeblue_vc.gbc:    RGBFIXFLAGS += -p 0x00 -t "POKEMON BLUE"
 gfx/battle/move_anim_0.2bpp: tools/gfx += --trim-whitespace
 gfx/battle/move_anim_1.2bpp: tools/gfx += --trim-whitespace
 
-gfx/intro/blue_jigglypuff_1.2bpp: RGBGFXFLAGS += --columns
-gfx/intro/blue_jigglypuff_2.2bpp: RGBGFXFLAGS += --columns
-gfx/intro/blue_jigglypuff_3.2bpp: RGBGFXFLAGS += --columns
 gfx/intro/red_nidorino_1.2bpp: RGBGFXFLAGS += --columns
 gfx/intro/red_nidorino_2.2bpp: RGBGFXFLAGS += --columns
 gfx/intro/red_nidorino_3.2bpp: RGBGFXFLAGS += --columns
