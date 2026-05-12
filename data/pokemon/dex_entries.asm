@@ -1157,7 +1157,7 @@ GeodudeDexEntry:
 	text_end
 
 PorygonDexEntry:
-	db "CAO@"
+	db "C.A.O.@"
 	db 8
 	dw 365
 	text_far _PorygonDexEntry
